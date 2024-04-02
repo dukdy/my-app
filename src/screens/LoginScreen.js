@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableOpacity, StyleSheet, View} from 'react-native'
+import { TouchableOpacity, StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
@@ -11,6 +11,7 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { Image } from 'react-native'
+
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -27,7 +28,7 @@ export default function LoginScreen({ navigation }) {
     }
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Dashboard' }],
+      routes: [{ name: 'MainScreen' }],
     })
   }
 
@@ -67,16 +68,16 @@ export default function LoginScreen({ navigation }) {
       <Button mode="contained" onPress={onLoginPressed}>
         Đăng nhập
       </Button>
-      
+
       <Text>Hoặc:</Text>
-      <View style = {{ 
+      <View style={{
         flexDirection: 'row',
         marginVertical: 20,
         justifyContent: 'space-around',
-        }}>
-            <Image source={require('../assets/google.png')} />
-            <Text>           </Text>
-            <Image source={require('../assets/facebook.png')} />
+      }}>
+        <Image source={require('../assets/google.png')} />
+        <Text>           </Text>
+        <Image source={require('../assets/facebook.png')} />
       </View>
       <View style={styles.row}>
         <Text>Bạn chưa có tài khoản? </Text>
