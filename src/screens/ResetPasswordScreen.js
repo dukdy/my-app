@@ -12,7 +12,7 @@ export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
   const [newpassword, setNewPassword] = useState({ value: '', error: '' })
   const [confirmpassword, setConfirmPassword] = useState({ value: '', error: '' })
-  const newError = {}
+
 
   
 

@@ -4,11 +4,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 // Screens
-import { MainScreen, Dashboard, LoginScreen} from '../screens'
+import { MainScreen, SearchProduct, CartScreen, ProfileUserScreen} from '../screens'
 
 const Tab = createBottomTabNavigator();
 
-function Tabnavigator () {
+export default function Tabnavigator () {
   return (
       <Tab.Navigator
       initialRouteName="Trang chủ"
@@ -28,8 +28,18 @@ function Tabnavigator () {
         }}
       />
       <Tab.Screen
+        name="Filter"
+        component={SearchProduct}
+        options={{
+          tabBarLabel: 'Tìm kiếm',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="card-search-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Cart"
-        component={LoginScreen}
+        component={CartScreen}
         options={{
           tabBarLabel: 'Giỏ hàng',
           tabBarIcon: ({ color, size }) => (
@@ -39,7 +49,7 @@ function Tabnavigator () {
       />
       <Tab.Screen
         name="Profile"
-        component={Dashboard}
+        component={ProfileUserScreen}
         options={{
           tabBarLabel: 'Trang cá nhân',
           tabBarIcon: ({ color, size }) => (
@@ -50,5 +60,3 @@ function Tabnavigator () {
     </Tab.Navigator>
   );
 };
-
-export default Tabnavigator;

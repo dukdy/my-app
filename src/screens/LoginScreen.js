@@ -34,7 +34,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack} />
+      
       <Logo />
       <Header>Chào mừng quay trở lại!</Header>
       <TextInput
