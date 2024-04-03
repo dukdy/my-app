@@ -13,11 +13,11 @@ export default function UserProfileScreen({navigation})  {
     <View style={styles.container}>
       <View style={styles.userInfo}>
         <Text style={styles.label}>Họ và tên:</Text>
-        <Text style={styles.value}>Nguyễn Văn A</Text>
+        <Text style={styles.value}>Nguyễn Đức Duy </Text>
       </View>
       <View style={styles.userInfo}>
         <Text style={styles.label}>Email:</Text>
-        <Text style={styles.value}>nguyenvana@example.com</Text>
+        <Text style={styles.value}>nduy12427@gmail.com</Text>
       </View>
       <View style={styles.userInfo}>
         <Text style={styles.label}>Số điện thoại:</Text>
@@ -25,7 +25,7 @@ export default function UserProfileScreen({navigation})  {
       </View>
       <View style={styles.userInfo}>
         <Text style={styles.label}>Địa chỉ:</Text>
-        <Text style={styles.value}>123 Đường ABC, Quận XYZ, TP HCM</Text>
+        <Text style={styles.value}>Hà Nội</Text>
       </View>
       <Button mode="contained" onPress={onSignoutPressed}>
         Đăng xuất
