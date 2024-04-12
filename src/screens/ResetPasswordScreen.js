@@ -32,26 +32,26 @@ export default function ResetPasswordScreen({ navigation }) {
       setConfirmPassword({ ...confirmpassword, error: confirmpasswordError });
       return;
     }
-    axios
-      .post("http://192.168.59.194:5001/reset-password", {
-        email: email.value,
-        newpassword: newpassword.value,
-        confirmpassword: confirmpassword.value,
-      })
-      .then((response) => {
-        if (response.data.message) {
-          alert(response.data.message);
-        }
-        navigation.navigate("LoginScreen");
-      })
-      .catch((error) => {
-        if (error.response) {
-          setDialogMessage(error.response.data.message);
-          setDialogVisible(true);
-        } else {
-          console.error("Error:", error);
-        }
-      });
+    // axios
+    //   .post("http://192.168.59.194:5001/reset-password", {
+    //     email: email.value,
+    //     newpassword: newpassword.value,
+    //     confirmpassword: confirmpassword.value,
+    //   })
+    //   .then((response) => {
+    //     if (response.data.message) {
+    //       alert(response.data.message);
+    //     }
+    //     navigation.navigate("LoginScreen");
+    //   })
+    //   .catch((error) => {
+    //     if (error.response) {
+    //       setDialogMessage(error.response.data.message);
+    //       setDialogVisible(true);
+    //     } else {
+    //       console.error("Error:", error);
+    //     }
+    //   });
   };
 
   return (

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Text, TextInput, Image, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function SearchProduct() {
+export default function SearchProduct({navigation}) {
     const [products, setProducts] = useState([
         { id: '11', name: 'Rhino R23 05', price: '2.500.000đ', image: require('../assets/rhino r23 05.png') },
         { id: '12', name: 'Rhino R23 06', price: '2.500.000đ', image: require('../assets/rhino r23 06.png') },
@@ -36,20 +36,20 @@ export default function SearchProduct() {
         { id: '52', name: 'Bàn Predator', price: '299.000.000đ', image: require('../assets/ban pre.png') },
         { id: '53', name: 'Bàn Rasson', price: '209.000.000đ', image: require('../assets/ban rasson.png') }
     ])
-    const renderProductItem = ({ item }) => (
-        <View style={styles.productItem}>
-            <Image source={item.image} style={styles.image} />
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.price}>{item.price}</Text>
-            <TouchableOpacity style={styles.addToCartButton}>
-                <Text style={styles.addToCartButtonText}>Add to cart</Text>
-            </TouchableOpacity>
-        </View>
-    );
+    // const renderProductItem = ({ item }) => (
+    //     <TouchableOpacity style={styles.productItem}>
+    //         <Image source={item.image} style={styles.image} />
+    //         <Text style={styles.name}>{item.name}</Text>
+    //         <Text style={styles.price}>{item.price}</Text>
+    //         <TouchableOpacity style={styles.addToCartButton}>
+    //             <Text style={styles.addToCartButtonText}>Add to cart</Text>
+    //         </TouchableOpacity>
+    //     </TouchableOpacity>
+    // );
     const [searchProduct, setSearchProduct] = useState('')
     const filteredProduct = products.filter(eachProduct => {
         return eachProduct.name.toLowerCase()
-        .includes(searchProduct.toLowerCase())
+            .includes(searchProduct.toLowerCase())
     })
     return (
         <View style={styles.container}>
@@ -59,9 +59,9 @@ export default function SearchProduct() {
                 flexDirection: 'row',
                 alignItems: 'center',
             }}>
-                <MaterialCommunityIcons 
-                    name='card-search-outline' 
-                    size={30} color={'black'} 
+                <MaterialCommunityIcons
+                    name='card-search-outline'
+                    size={30} color={'black'}
                     style={{
                         position: 'absolute',
                         top: 15,
@@ -83,17 +83,26 @@ export default function SearchProduct() {
                         opacity: 0.8,
                         paddingStart: 30,
                         marginTop: 10
-                        
+
                     }} />
             </View>
             <View style={styles.container}>
                 <FlatList
                     data={filteredProduct}
                     numColumns={2}
-                    renderItem={renderProductItem}
+                    // renderItem={renderProductItem}
+                    renderItem={({ item }) =>
+                        <TouchableOpacity onPress = {() => navigation.navigate('Details', {item})}style={styles.productItem}>
+                            <Image source={item.image} style={styles.image} />
+                            <Text style={styles.name}>{item.name}</Text>
+                            <Text style={styles.price}>{item.price}</Text>
+                            <TouchableOpacity style={styles.addToCartButton}>
+                                <Text style={styles.addToCartButtonText}>Add to cart</Text>
+                            </TouchableOpacity>
+                        </TouchableOpacity>
+                    }
                     keyExtractor={(item) => item.id}
                 />
-
             </View>
         </View>
     )

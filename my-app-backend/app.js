@@ -21,7 +21,7 @@ app.post("/register", async (req, res, next) => {
     ) {
       return res
         .status(400)
-        .json({ message: "Please enter all required fields." });
+        .json({ message: "Vui lòng điền đầy đủ thông tin !" });
     }
 
     // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay chưa
@@ -31,14 +31,14 @@ app.post("/register", async (req, res, next) => {
       // Nếu email đã tồn tại, gửi một thông báo cho người dùng
       return res
         .status(400)
-        .json({ message: "Email already exists. Please login." });
+        .json({ message: "Email đã tồn tại , vui lòng đăng nhập !" });
     }
 
     // Nếu không, tạo một người dùng mới với thông tin từ yêu cầu
     const user = new UserModel(req.body);
     const result = await user.save();
 
-    res.json({ message: "User registered successfully", user: result });
+    res.json({ message: "Đăng ký thành công !", user: result });
   } catch (error) {
     next(error);
   }
@@ -63,7 +63,7 @@ app.post("/login", async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
       return res
         .status(400)
-        .json({ message: "Please enter all required fields." });
+        .json({ message: "Vui lòng điền đầy đủ thông tin !" });
     }
 
     // Tìm người dùng trong cơ sở dữ liệu bằng email
@@ -71,17 +71,17 @@ app.post("/login", async (req, res, next) => {
 
     if (!user) {
       // Nếu không tìm thấy người dùng, gửi một thông báo cho người dùng
-      return res.status(400).json({ message: "The email does not exist." });
+      return res.status(400).json({ message: "Không tồn tại email" });
     }
 
     // Kiểm tra xem mật khẩu có khớp không
     if (user.password !== req.body.password) {
       // Nếu mật khẩu không khớp, gửi một thông báo cho người dùng
-      return res.status(400).json({ message: "The password is incorrect." });
+      return res.status(400).json({ message: "Sai mật khẩu vui lòng nhập lại" });
     }
 
     // Nếu tất cả đều ổn, gửi một thông báo thành công
-    res.json({ message: "User logged in successfully", user: user });
+    res.json({ message: "Đăng nhập thành công !", user: user });
   } catch (error) {
     next(error);
   }

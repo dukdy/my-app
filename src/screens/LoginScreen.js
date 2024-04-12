@@ -6,7 +6,6 @@ import Logo from "../components/Logo";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
@@ -25,30 +24,34 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    axios
-      .post("http://192.168.59.194:5001/login", {
-        email: email.value,
-        password: password.value,
-      })
-      .then((response) => {
-        if (response.data.message === "User logged in successfully") {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "MainScreen" }],
-          });
-        } else {
-          // Show error message to the user
-          alert(response.data.message);
-        }
-      })
-      .catch((error) => {
-        // Check if error response from server and show that message
-        if (error.response) {
-          alert(error.response.data.message);
-        } else {
-          console.error("Error:", error);
-        }
-      });
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MainScreen' }],
+    })
+    // axios
+    //   .post("http://192.168.59.194:5001/login", {
+    //     email: email.value,
+    //     password: password.value,
+    //   })
+    //   .then((response) => {
+    //     if (response.data.message === "Đăng nhập thành công !") {
+    //       navigation.reset({
+    //         index: 0,
+    //         routes: [{ name: "MainScreen" }],
+    //       });
+    //     } else {
+          
+    //       alert(response.data.message);
+    //     }
+    //   })
+    //   .catch((error) => {
+        
+    //     if (error.response) {
+    //       alert(error.response.data.message);
+    //     } else {
+    //       console.error("Error:", error);
+    //     }
+    //   });
   };
 
   return (

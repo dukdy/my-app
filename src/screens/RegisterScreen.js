@@ -6,7 +6,6 @@ import Logo from "../components/Logo";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
@@ -14,6 +13,12 @@ import { nameValidator } from "../helpers/nameValidator";
 import { phoneValidator } from "../helpers/phoneValidator";
 import axios from "axios";
 import Dialog from "react-native-dialog";
+
+// var Email = {
+//   value: ''
+// ,
+// error: ''
+// }
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: "", error: "" });
@@ -35,36 +40,35 @@ export default function RegisterScreen({ navigation }) {
       setPhone({ ...phone, error: phoneError });
       return;
     }
-    axios
-      .post("http://192.168.59.194:5001/register", {
-        name: name.value,
-        email: email.value,
-        password: password.value,
-        phone: phone.value,
-      })
-      .then((response) => {
-        if (response.data.message === "User registered successfully") {
+    // axios
+    //   .post("http://192.168.59.194:5001/register", {
+    //     name: name.value,
+    //     email: email.value,
+    //     password: password.value,
+    //     phone: phone.value,
+    //   })
+    //   .then((response) => {
+    //     if (response.data.message === "Đăng ký thành công !") {
           navigation.reset({
             index: 0,
             routes: [{ name: "Dashboard" }],
           });
-        } else {
-          alert(response.data.message);
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          setDialogMessage("Tài khoản đã tồn tại , vui lòng đăng nhập !!");
-          setDialogVisible(true);
-        } else {
-          console.error("Error:", error);
-        }
-      });
+    //     } else {
+    //       alert(response.data.message);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     if (error.response) {
+    //       setDialogMessage("Tài khoản đã tồn tại , vui lòng đăng nhập !!");
+    //       setDialogVisible(true);
+    //     } else {
+    //       console.error("Error:", error);
+    //     }
+    //   });
   };
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack} />
       <Logo />
       <Header>Tạo tài khoản</Header>
       <TextInput
