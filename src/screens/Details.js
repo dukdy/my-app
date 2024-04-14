@@ -1,16 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
 import React, {useState} from "react";
 import { Text, StyleSheet, Image, View, TouchableOpacity, FlatList } from "react-native";
+import BackButton from "../components/BackButton";
 
 
 export default function Details({ route }) {
-
+    const navigation = useNavigation()
     const { item } = route.params
     return (
-        <>
+        <>  
+            
             <Image source={item.image} style={{
                 width: '100%',
                 height: '50%',
             }} />
+            <BackButton goBack={navigation.goBack} />
             <View style={styles.detail}>
                 <Text style={styles.h1}>Tên sản phẩm: {item.name}</Text>
                 <Text style={styles.h1}>Giá: {item.price}</Text>

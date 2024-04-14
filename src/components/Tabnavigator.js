@@ -38,7 +38,7 @@ export default function Tabnavigator () {
         }}
       />
       <Tab.Screen
-        name="Cart"
+        name="CartScreen"
         component={CartScreen}
         options={{
           tabBarLabel: 'Giỏ hàng',
