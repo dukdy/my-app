@@ -27,7 +27,7 @@ export default function Details({ route }) {
                 </View>
 
             </View>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity onPress = {() => navigation.navigate('CartScreen', {item})}style={styles.btn}>
                 <Text style={{ textAlign: 'center', color: 'white' }}>Them gio hang</Text>
             </TouchableOpacity>
         </>

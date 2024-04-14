@@ -10,6 +10,7 @@ export default function CartScreen({ route }) {
   //   { id: 3, image: require('../assets/rhino r23 05.png'),name: 'Product 3', price: '10.500.000', quantity: 1 },
   //   { id: 4, image: require('../assets/rhino r23 05.png'),name: 'Product 3', price: '10.500.000', quantity: 1 }, // 10.5 triệu
   // ]);
+
   const { item } = route.params;
 
   // State để lưu trữ danh sách sản phẩm trong giỏ hàng
@@ -43,14 +44,14 @@ export default function CartScreen({ route }) {
     <View style={styles.item}>
       <Image source = {item.image} style = {styles.img}/>
       <View style = {styles.info}>
-      <Text style={styles.title}>{item.name}</Text>
-      <Text style={styles.price}>Giá: {item.price} VNĐ</Text>
-      <Text style={styles.quantity}>Số lượng:</Text>
-      <View style = {styles.quantitybox}>
+        <Text numberOfLines = {2} style={styles.title}>{item.name}</Text>
+        <Text style={styles.price}>Giá: {item.price} VNĐ</Text>
+        <Text style={styles.quantity}>Số lượng:</Text>
+        <View style = {styles.quantitybox}>
           <Button title="-" onPress={() => decreaseQuantity(item.id)} style = {styles.btn} />
           <Text style= {{fontSize: 16, marginHorizontal: 20}}>{item.quantity}</Text>
           <Button title="+" onPress={() => increaseQuantity(item.id)} style = {styles.btn} />
-      </View>
+        </View>
       </View>
     </View>
   );
@@ -132,7 +133,8 @@ const styles = StyleSheet.create({
     height: 120
   },
   info: {
-    marginLeft: 30
+    marginLeft: 30,
+    width: 150
   },
   title: {
     fontSize: 20,

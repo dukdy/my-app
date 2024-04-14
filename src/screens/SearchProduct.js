@@ -96,7 +96,7 @@ export default function SearchProduct({navigation}) {
                             <Image source={item.image} style={styles.image} />
                             <Text style={styles.name}>{item.name}</Text>
                             <Text style={styles.price}>{item.price}</Text>
-                            <TouchableOpacity style={styles.addToCartButton}>
+                            <TouchableOpacity onPress = {() => navigation.navigate('CartScreen', {item})} style={styles.addToCartButton}>
                                 <Text style={styles.addToCartButtonText}>Add to cart</Text>
                             </TouchableOpacity>
                         </TouchableOpacity>
