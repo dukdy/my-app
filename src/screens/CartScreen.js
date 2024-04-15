@@ -3,24 +3,13 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button, Image } fro
 
 
 
-export default function CartScreen({ route }) {
-  // const [cartItems, setCartItems] = useState([
-  //   { id: 1, image: require('../assets/rhino r23 05.png'),name: 'Product 1', price: '7.500.000', quantity: 1 }, // 7.5 triệu
-  //   { id: 2, image: require('../assets/rhino r23 05.png'), name: 'Product 2', price: '6.500.000', quantity: 1 }, // 6.5 triệu
-  //   { id: 3, image: require('../assets/rhino r23 05.png'),name: 'Product 3', price: '10.500.000', quantity: 1 },
-  //   { id: 4, image: require('../assets/rhino r23 05.png'),name: 'Product 3', price: '10.500.000', quantity: 1 }, // 10.5 triệu
-  // ]);
+export default function CartScreen({ route, navigation }) {
 
   const { item } = route.params;
-
-  // State để lưu trữ danh sách sản phẩm trong giỏ hàng
   const [cartItems, setCartItems] = useState([]);
-
-  // Thêm sản phẩm vào giỏ hàng hoặc tăng số lượng nếu sản phẩm đã tồn tại
   const addToCart = (productToAdd) => {
     const existingProduct = cartItems.find(item => item.id === productToAdd.id);
     if (existingProduct) {
-      // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng
       const updatedCartItems = cartItems.map(item => {
         if (item.id === existingProduct.id) {
           return { ...item, quantity: item.quantity + 1 };
@@ -33,6 +22,10 @@ export default function CartScreen({ route }) {
       setCartItems([...cartItems, { ...productToAdd, quantity: 1 }]);
     }
   };
+  const removeFromCart = (productId) => {
+    const updatedCart = cartItems.filter(item => item.id !== productId);
+    setCartItems(updatedCart);
+  };
 
   // useEffect để cập nhật giỏ hàng khi có thay đổi trong cartItems
   useEffect(() => {
@@ -42,16 +35,21 @@ export default function CartScreen({ route }) {
   }, [item]);
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Image source = {item.image} style = {styles.img}/>
-      <View style = {styles.info}>
-        <Text numberOfLines = {2} style={styles.title}>{item.name}</Text>
+      <Image source={item.image} style={styles.img} />
+      <View style={styles.info}>
+        <Text numberOfLines={2} style={styles.title}>{item.name}</Text>
         <Text style={styles.price}>Giá: {item.price} VNĐ</Text>
         <Text style={styles.quantity}>Số lượng:</Text>
-        <View style = {styles.quantitybox}>
-          <Button title="-" onPress={() => decreaseQuantity(item.id)} style = {styles.btn} />
-          <Text style= {{fontSize: 16, marginHorizontal: 20}}>{item.quantity}</Text>
-          <Button title="+" onPress={() => increaseQuantity(item.id)} style = {styles.btn} />
+        <View style={styles.quantitybox}>
+          <Button title="-" onPress={() => decreaseQuantity(item.id)} style={styles.btn} />
+          <Text style={{ fontSize: 16, marginHorizontal: 20 }}>{item.quantity}</Text>
+          <Button title="+" onPress={() => increaseQuantity(item.id)} style={styles.btn} />
         </View>
+      </View>
+      <View style={styles.delete}>
+      <TouchableOpacity  onPress={() => removeFromCart(item.id)}>
+          <Image style = {{height: 50, width: 50}}source={require('../assets/trash.png')}/>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -91,19 +89,27 @@ export default function CartScreen({ route }) {
   return (
     <>
       <Text style={styles.header}>Giỏ hàng</Text>
-      <View style={styles.container}>
-        <FlatList
-          data={cartItems}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-        <View style={styles.footer}>
-          <Text style={styles.total}>Tổng tiền: {formatNumberWithDot(calculateTotal())} VNĐ</Text>
-          <TouchableOpacity style={styles.checkoutButton}>
-            <Text style={styles.checkoutText}>Thanh toán</Text>
-          </TouchableOpacity>
+      {cartItems.length === 0 ? (
+        <View style = {{alignItems: 'center', justifyContent:'center', marginTop: 200}}>
+          <Image source={require('../assets/empty-cart.png')}/>
+          <Text style={{ fontSize: 24, margin: 20, alignItems: 'center', justifyContent:'center' }}>Your shopping cart is empty.</Text>
         </View>
-      </View>
+        
+      ) : (
+        <View style={styles.container}>
+          <FlatList
+            data={cartItems}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+          <View style={styles.footer}>
+            <Text style={styles.total}>Tổng tiền: {formatNumberWithDot(calculateTotal())} VNĐ</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('CheckoutScreen', {cartItems})} style={styles.checkoutButton} >
+              <Text style={styles.checkoutText}>Thanh toán</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
     </>
   );
 }
@@ -123,10 +129,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 10,
     flexDirection: 'row',
     borderRadius: 20,
-    borderWidth: 1
+    borderWidth: 1,
   },
   img: {
     width: 120,
@@ -137,13 +143,14 @@ const styles = StyleSheet.create({
     width: 150
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: 'bold'
   },
   price: {
-    fontSize: 16,
+    fontSize: 14,
   },
   quantity: {
-    fontSize: 16,
+    fontSize: 14,
   },
   footer: {
     backgroundColor: '#ccc',
@@ -169,8 +176,12 @@ const styles = StyleSheet.create({
     width: 60,
   },
   btn: {
-    height: 50,
+    height: 30,
     width: 50
+  },
+  delete: {
+    marginTop: 55,
+    marginRight: 50,
   }
 });
 

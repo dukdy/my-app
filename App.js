@@ -10,7 +10,8 @@ import {
   ResetPasswordScreen,
   Dashboard,
   Details,
-  CartScreen
+  CartScreen,
+  CheckoutScreen
 } from './src/screens'
 import Tabnavigator from './src/components/Tabnavigator'
 
@@ -32,6 +33,7 @@ export default function App() {
           <Stack.Screen name="Dashboard" component={Dashboard} /> */}
           <Stack.Screen name="MainScreen" component={Tabnavigator} />
           <Stack.Screen name="Details" component={Details} />
+          <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
 
           {/* <Stack.Screen
             name="ResetPasswordScreen"
