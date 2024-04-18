@@ -98,6 +98,7 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={(text) => setPhone({ value: text, error: "" })}
         error={!!phone.error}
         errorText={phone.error}
+        keyboardType="phone-pad"
       />
       <TextInput
         label="Mật khẩu"

@@ -1,56 +1,134 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Button from '../components/Button'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import axios from 'axios';
+import Header from '../components/Header';
+import TextInput from '../components/TextInput';
 
-export default function UserProfileScreen({navigation})  {
+export default function UserProfileScreen({ navigation }) {
+  const [name, setName] = useState('Nguyễn Đức Duy');
+  const [email, setEmail] = useState('nduy147@gmail.com');
+  const [phone, setPhone] = useState('0399271221');
+  const [isEditing, setIsEditing] = useState(false);
   const onSignoutPressed = () => {
     navigation.reset({
       index: 0,
       routes: [{ name: 'LoginScreen' }],
     })
   }
+  const handleEditProfile = () => {
+    // Thực hiện lưu thông tin cá nhân vào cơ sở dữ liệu hoặc API
+    console.log('Thông tin đã được lưu:', { name, email, phone });
+    // Hiển thị thông báo hoặc thực hiện các thao tác khác ở đây
+    setIsEditing(false); // Kết thúc chế độ chỉnh sửa
+  };
+
+  const handleChangePassword = () => {
+    navigation.navigate('ChangePasswordScreen');
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.userInfo}>
-        <Text style={styles.label}>Họ và tên:</Text>
-        <Text style={styles.value}>Nguyễn Đức Duy </Text>
+    <>
+
+      <View style={styles.container}>
+        <Header>Thông tin tài khoản</Header>
+        <View>
+          <Text style={styles.label}>Tên:</Text>
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={text => {
+              if (isEditing) setName(text);
+            }}
+            editable={isEditing}
+          />
+          <Text style={styles.label}>Email:</Text>
+          <TextInput
+            style={styles.input}
+            value={email}
+            onChangeText={text => {
+              if (isEditing) setEmail(text);
+            }}
+            keyboardType="email-address"
+            editable={isEditing}
+          />
+          <Text style={styles.label}>Số điện thoại:</Text>
+          <TextInput
+            style={styles.input}
+            value={phone}
+            onChangeText={text => {
+              if (isEditing) setPhone(text);
+            }}
+            keyboardType="phone-pad"
+            editable={isEditing}
+          />
+          {isEditing ? (
+            <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
+              <Text style={styles.editButtonText}>Lưu thông tin</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.editButton} onPress={() => setIsEditing(true)}>
+              <Text style={styles.editButtonText}>Chỉnh sửa thông tin</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        <TouchableOpacity style={styles.changePasswordButton} onPress={handleChangePassword}>
+          <Text style={styles.changePasswordButtonText}>Thay đổi mật khẩu</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.logoutButton} onPress={onSignoutPressed}>
+          <Text style={styles.logoutButtonText}>Đăng xuất</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.userInfo}>
-        <Text style={styles.label}>Email:</Text>
-        <Text style={styles.value}>nduy12427@gmail.com</Text>
-      </View>
-      <View style={styles.userInfo}>
-        <Text style={styles.label}>Số điện thoại:</Text>
-        <Text style={styles.value}>0987654321</Text>
-      </View>
-      <View style={styles.userInfo}>
-        <Text style={styles.label}>Địa chỉ:</Text>
-        <Text style={styles.value}>Hà Nội</Text>
-      </View>
-      <Button mode="contained" onPress={onSignoutPressed}>
-        Đăng xuất
-      </Button>
-    </View>
-    
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
-    paddingHorizontal: 20,
+    padding: 20,
   },
-  userInfo: {
+  profileInfo: {
     marginBottom: 20,
   },
   label: {
-    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
   },
   value: {
-    fontSize: 16,
+    marginBottom: 10,
+  },
+  editButton: {
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  editButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight:'bold'
+  },
+  changePasswordButton: {
+    backgroundColor: '#2196F3',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  changePasswordButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight:'bold'
+  },
+  logoutButton: {
+    backgroundColor: '#F44336',
+    padding: 10,
+    borderRadius: 5,
+  },
+  logoutButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight:'bold'
   },
 });
+
 
