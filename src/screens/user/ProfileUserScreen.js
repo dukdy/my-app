@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import Header from '../components/Header';
-import TextInput from '../components/TextInput';
+import Header from '../../components/Header';
+import TextInput from '../../components/TextInput';
 
 export default function UserProfileScreen({ navigation }) {
   const [name, setName] = useState('Nguyễn Đức Duy');
-  const [email, setEmail] = useState('nduy147@gmail.com');
+  const [email, setEmail] = useState('nduy12427@gmail.com');
   const [phone, setPhone] = useState('0399271221');
   const [isEditing, setIsEditing] = useState(false);
   const onSignoutPressed = () => {

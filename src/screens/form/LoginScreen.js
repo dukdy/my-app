@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import { theme } from "../core/theme";
-import { emailValidator } from "../helpers/emailValidator";
-import { passwordValidator } from "../helpers/passwordValidator";
+import Background from "../../components/Background";
+import Logo from "../../components/Logo";
+import Header from "../../components/Header";
+import Button from "../../components/Button";
+import TextInput from "../../components/TextInput";
+import { theme } from "../../core/theme";
+import { emailValidator } from "../../helpers/emailValidator";
+import { passwordValidator } from "../../helpers/passwordValidator";
 import { Image } from "react-native";
 import axios from "axios";
 
@@ -24,34 +24,30 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'MainScreen' }],
-    })
-    // axios
-    //   .post("http://192.168.59.194:5001/login", {
-    //     email: email.value,
-    //     password: password.value,
-    //   })
-    //   .then((response) => {
-    //     if (response.data.message === "Đăng nhập thành công !") {
-    //       navigation.reset({
-    //         index: 0,
-    //         routes: [{ name: "MainScreen" }],
-    //       });
-    //     } else {
+    axios
+      .post("http://192.168.59.194:5001/login", {
+        email: email.value,
+        password: password.value,
+      })
+      .then((response) => {
+        if (response.data.message === "Đăng nhập thành công !") {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "MainScreen" }],
+          });
+        } else {
           
-    //       alert(response.data.message);
-    //     }
-    //   })
-    //   .catch((error) => {
+          alert(response.data.message);
+        }
+      })
+      .catch((error) => {
         
-    //     if (error.response) {
-    //       alert(error.response.data.message);
-    //     } else {
-    //       console.error("Error:", error);
-    //     }
-    //   });
+        if (error.response) {
+          alert(error.response.data.message);
+        } else {
+          console.error("Error:", error);
+        }
+      });
   };
 
   return (
@@ -102,10 +98,10 @@ export default function LoginScreen({ navigation }) {
           onPress={this.signInWithGoogle}
           style={{ paddingRight: 20 }}
         >
-          <Image source={require("../assets/google.png")} />
+          <Image source={require("../../assets/google.png")} />
         </TouchableOpacity>
         <TouchableOpacity onPress={this.signInWithFacebook}>
-          <Image source={require("../assets/facebook.png")} />
+          <Image source={require("../../assets/facebook.png")} />
         </TouchableOpacity>
       </View>
       <View style={styles.row}>

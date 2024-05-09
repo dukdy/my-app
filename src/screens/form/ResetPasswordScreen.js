@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Background from "../components/Background";
-import BackButton from "../components/BackButton";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import TextInput from "../components/TextInput";
-import Button from "../components/Button";
-import { emailValidator } from "../helpers/emailValidator";
-import { passwordValidator } from "../helpers/passwordValidator";
+import Background from "../../components/Background";
+import BackButton from "../../components/BackButton";
+import Logo from "../../components/Logo";
+import Header from "../../components/Header";
+import TextInput from "../../components/TextInput";
+import Button from "../../components/Button";
+import { emailValidator } from "../../helpers/emailValidator";
+import { passwordValidator } from "../../helpers/passwordValidator";
 import { Image } from "react-native";
 import axios from "axios";
 import Dialog from "react-native-dialog";
@@ -32,26 +32,26 @@ export default function ResetPasswordScreen({ navigation }) {
       setConfirmPassword({ ...confirmpassword, error: confirmpasswordError });
       return;
     }
-    // axios
-    //   .post("http://192.168.59.194:5001/reset-password", {
-    //     email: email.value,
-    //     newpassword: newpassword.value,
-    //     confirmpassword: confirmpassword.value,
-    //   })
-    //   .then((response) => {
-    //     if (response.data.message) {
-    //       alert(response.data.message);
-    //     }
-    //     navigation.navigate("LoginScreen");
-    //   })
-    //   .catch((error) => {
-    //     if (error.response) {
-    //       setDialogMessage(error.response.data.message);
-    //       setDialogVisible(true);
-    //     } else {
-    //       console.error("Error:", error);
-    //     }
-    //   });
+    axios
+      .post("http://192.168.59.194:5001/reset-password", {
+        email: email.value,
+        newpassword: newpassword.value,
+        confirmpassword: confirmpassword.value,
+      })
+      .then((response) => {
+        if (response.data.message) {
+          alert(response.data.message);
+        }
+        navigation.navigate("LoginScreen");
+      })
+      .catch((error) => {
+        if (error.response) {
+          setDialogMessage(error.response.data.message);
+          setDialogVisible(true);
+        } else {
+          console.error("Error:", error);
+        }
+      });
   };
 
   return (

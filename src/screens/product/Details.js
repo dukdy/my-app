@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, {useState} from "react";
 import { Text, StyleSheet, Image, View, TouchableOpacity, FlatList } from "react-native";
-import BackButton from "../components/BackButton";
+import BackButton from "../../components/BackButton";
 
 
 export default function Details({ route }) {

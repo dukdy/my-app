@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
+import BackButton from '../../components/BackButton';
 
 
 
 export default function CartScreen({ route, navigation }) {
 
-  const { item } = route.params;
+  const  item  = route.params ? route.params.item : null;
   const [cartItems, setCartItems] = useState([]);
   const addToCart = (productToAdd) => {
     const existingProduct = cartItems.find(item => item.id === productToAdd.id);
@@ -48,7 +49,7 @@ export default function CartScreen({ route, navigation }) {
       </View>
       <View style={styles.delete}>
       <TouchableOpacity  onPress={() => removeFromCart(item.id)}>
-          <Image style = {{height: 50, width: 50}}source={require('../assets/trash.png')}/>
+          <Image style = {{height: 50, width: 50}}source={require('../../assets/trash.png')}/>
         </TouchableOpacity>
       </View>
     </View>
@@ -91,8 +92,8 @@ export default function CartScreen({ route, navigation }) {
       <Text style={styles.header}>Giỏ hàng</Text>
       {cartItems.length === 0 ? (
         <View style = {{alignItems: 'center', justifyContent:'center', marginTop: 200}}>
-          <Image source={require('../assets/empty-cart.png')}/>
-          <Text style={{ fontSize: 24, margin: 20, alignItems: 'center', justifyContent:'center' }}>Your shopping cart is empty.</Text>
+          <Image source={require('../../assets/empty-cart.png')}/>
+          <Text style={{ fontSize: 24, margin: 20, alignItems: 'center', justifyContent:'center' }}>Giỏ hàng của bạn đang trống!</Text>
         </View>
         
       ) : (

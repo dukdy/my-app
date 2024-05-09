@@ -1,13 +1,13 @@
 import React from 'react'
 import { Text, Image, StyleSheet, View} from 'react-native'
-import Products from '../data/Products';
+import Products from '../../data/Products';
 
 export default function MainScreen({ }) {
   
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('../assets/logo.png')} style={{
+        <Image source={require('../../assets/logo.png')} style={{
           height: 70,
           width: 150,
         }} />
